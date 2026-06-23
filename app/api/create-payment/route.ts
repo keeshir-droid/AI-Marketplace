@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createPaymentLink } from "@/lib/cashfree";
+import { razorpay } from "@/lib/razorpay";
 import { supabase } from "@/lib/supabase";
 import { WAITLIST_PRICE } from "@/lib/agents";
 
@@ -20,22 +20,38 @@ export async function POST(req: NextRequest) {
     }
 
     const amount = parseFloat((agentIds.length * WAITLIST_PRICE).toFixed(2));
+    const amountInPaise = Math.round(amount * 100);
 
-    const paymentLink = await createPaymentLink({ email, name, agentIds, amount });
+    const order = await razorpay.orders.create({
+      amount: amountInPaise,
+      currency: "USD",
+      receipt: `waitlist_${Date.now()}`,
+      notes: {
+        email,
+        name: name || "",
+        agent_ids: agentIds.join(","),
+      },
+    });
 
     await supabase.from("waitlist_signups").insert({
       email,
       name: name || null,
       selected_agents: agentIds,
       amount_usd: amount,
-      cashfree_link_id: paymentLink.link_id,
+      razorpay_order_id: order.id,
       status: "pending",
     });
 
-    return NextResponse.json({ paymentLink: paymentLink.link_url });
+    return NextResponse.json({
+      orderId: order.id,
+      amount: amountInPaise,
+      currency: "USD",
+      keyId: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+    });
   } catch (err: unknown) {
     console.error("[create-payment]", err);
-    const message = err instanceof Error ? err.message : "Internal server error";
+    const message =
+      err instanceof Error ? err.message : "Internal server error";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

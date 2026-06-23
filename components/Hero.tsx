@@ -122,7 +122,7 @@ export default function Hero({ onBrowseClick }: HeroProps) {
               display: "inline-block",
             }}
           />
-          <span>🔒 Secured by Cashfree</span>
+          <span>🔒 Secured by Razorpay</span>
           <span
             style={{
               width: "1px",

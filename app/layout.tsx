@@ -46,6 +46,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
+      <head>
+        <script src="https://checkout.razorpay.com/v1/checkout.js" async />
+      </head>
       <body>{children}</body>
     </html>
   );

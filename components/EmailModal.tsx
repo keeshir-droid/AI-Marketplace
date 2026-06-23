@@ -3,6 +3,35 @@
 import { useState } from "react";
 import { WAITLIST_PRICE } from "@/lib/agents";
 
+declare global {
+  interface Window {
+    Razorpay: new (options: RazorpayOptions) => RazorpayInstance;
+  }
+}
+
+interface RazorpayOptions {
+  key: string;
+  amount: number;
+  currency: string;
+  name: string;
+  description: string;
+  order_id: string;
+  prefill: { email: string; name?: string };
+  theme: { color: string };
+  handler: (response: RazorpayResponse) => void;
+  modal?: { ondismiss?: () => void };
+}
+
+interface RazorpayInstance {
+  open: () => void;
+}
+
+interface RazorpayResponse {
+  razorpay_payment_id: string;
+  razorpay_order_id: string;
+  razorpay_signature: string;
+}
+
 interface EmailModalProps {
   selectedCount: number;
   selectedIds: string[];
@@ -35,7 +64,11 @@ export default function EmailModal({
       const res = await fetch("/api/create-payment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, name: name || undefined, agentIds: selectedIds }),
+        body: JSON.stringify({
+          email,
+          name: name || undefined,
+          agentIds: selectedIds,
+        }),
       });
 
       const data = await res.json();
@@ -44,11 +77,48 @@ export default function EmailModal({
         throw new Error(data.error || "Something went wrong.");
       }
 
-      if (data.paymentLink) {
-        window.location.href = data.paymentLink;
-      }
+      const options: RazorpayOptions = {
+        key: data.keyId,
+        amount: data.amount,
+        currency: data.currency,
+        name: "AgentOS",
+        description: `Waitlist: ${selectedCount} agent${selectedCount !== 1 ? "s" : ""}`,
+        order_id: data.orderId,
+        prefill: { email, name: name || undefined },
+        theme: { color: "#D4A843" },
+        handler: async (response: RazorpayResponse) => {
+          try {
+            const verifyRes = await fetch("/api/verify-payment", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(response),
+            });
+
+            if (verifyRes.ok) {
+              window.location.href = `/thank-you?payment_id=${response.razorpay_payment_id}`;
+            } else {
+              setError("Payment verification failed. Please contact support.");
+              setLoading(false);
+            }
+          } catch {
+            setError("Payment verification failed. Please contact support.");
+            setLoading(false);
+          }
+        },
+        modal: {
+          ondismiss: () => {
+            setLoading(false);
+          },
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      const message =
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again.";
       setError(message);
       setLoading(false);
     }
@@ -95,7 +165,14 @@ export default function EmailModal({
         }}
       >
         {/* Header */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "28px" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            marginBottom: "28px",
+          }}
+        >
           <div>
             <h2
               style={{
@@ -108,8 +185,15 @@ export default function EmailModal({
             >
               Almost there
             </h2>
-            <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "14px", color: "#7A7C85" }}>
-              {selectedCount} agent{selectedCount !== 1 ? "s" : ""} · ${total} total
+            <p
+              style={{
+                fontFamily: "var(--font-inter), sans-serif",
+                fontSize: "14px",
+                color: "#7A7C85",
+              }}
+            >
+              {selectedCount} agent{selectedCount !== 1 ? "s" : ""} · $
+              {total} total
             </p>
           </div>
           <button
@@ -129,7 +213,14 @@ export default function EmailModal({
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+        <form
+          onSubmit={handleSubmit}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+          }}
+        >
           <div>
             <label
               style={{
@@ -150,8 +241,14 @@ export default function EmailModal({
               placeholder="you@example.com"
               required
               style={inputStyle}
-              onFocus={(e) => (e.currentTarget.style.borderColor = "rgba(212, 168, 67, 0.5)")}
-              onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.12)")}
+              onFocus={(e) =>
+                (e.currentTarget.style.borderColor =
+                  "rgba(212, 168, 67, 0.5)")
+              }
+              onBlur={(e) =>
+                (e.currentTarget.style.borderColor =
+                  "rgba(255, 255, 255, 0.12)")
+              }
             />
           </div>
 
@@ -167,7 +264,9 @@ export default function EmailModal({
               }}
             >
               Name{" "}
-              <span style={{ color: "#4A4C54", fontWeight: 400 }}>(optional)</span>
+              <span style={{ color: "#4A4C54", fontWeight: 400 }}>
+                (optional)
+              </span>
             </label>
             <input
               type="text"
@@ -175,13 +274,25 @@ export default function EmailModal({
               onChange={(e) => setName(e.target.value)}
               placeholder="Your name"
               style={inputStyle}
-              onFocus={(e) => (e.currentTarget.style.borderColor = "rgba(212, 168, 67, 0.5)")}
-              onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.12)")}
+              onFocus={(e) =>
+                (e.currentTarget.style.borderColor =
+                  "rgba(212, 168, 67, 0.5)")
+              }
+              onBlur={(e) =>
+                (e.currentTarget.style.borderColor =
+                  "rgba(255, 255, 255, 0.12)")
+              }
             />
           </div>
 
           {error && (
-            <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "13px", color: "#F87171" }}>
+            <p
+              style={{
+                fontFamily: "var(--font-inter), sans-serif",
+                fontSize: "13px",
+                color: "#F87171",
+              }}
+            >
               {error}
             </p>
           )}
@@ -200,7 +311,8 @@ export default function EmailModal({
               border: "none",
               cursor: loading ? "not-allowed" : "pointer",
               marginTop: "4px",
-              transition: "background-color 0.15s ease, transform 0.15s ease",
+              transition:
+                "background-color 0.15s ease, transform 0.15s ease",
               opacity: loading ? 0.8 : 1,
             }}
             onMouseEnter={(e) => {
@@ -216,11 +328,19 @@ export default function EmailModal({
               }
             }}
           >
-            {loading ? "Creating payment..." : `Pay $${total} →`}
+            {loading ? "Processing..." : `Pay $${total} →`}
           </button>
 
-          <p style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "12px", color: "#4A4C54", textAlign: "center" }}>
-            Secured by Cashfree. Full refund if we don&apos;t launch by Q4 2026.
+          <p
+            style={{
+              fontFamily: "var(--font-inter), sans-serif",
+              fontSize: "12px",
+              color: "#4A4C54",
+              textAlign: "center",
+            }}
+          >
+            Secured by Razorpay. Full refund if we don&apos;t launch by Q4
+            2026.
           </p>
         </form>
       </div>
