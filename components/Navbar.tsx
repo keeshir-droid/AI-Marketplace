@@ -11,9 +11,9 @@ export default function Navbar({ onCtaClick }: NavbarProps) {
         position: "sticky",
         top: 0,
         zIndex: 50,
-        backgroundColor: "rgba(8, 9, 13, 0.92)",
+        backgroundColor: "rgba(245, 247, 255, 0.92)",
         backdropFilter: "blur(12px)",
-        borderBottom: "1px solid rgba(255, 255, 255, 0.06)",
+        borderBottom: "1px solid rgba(129, 140, 248, 0.1)",
       }}
     >
       <div
@@ -29,40 +29,34 @@ export default function Navbar({ onCtaClick }: NavbarProps) {
       >
         <span
           style={{
-            fontFamily: "var(--font-space-grotesk), sans-serif",
-            fontSize: "20px",
+            fontFamily: "var(--font-display), sans-serif",
+            fontSize: "22px",
             fontWeight: 700,
-            color: "#EEEEE8",
-            letterSpacing: "-0.02em",
+            color: "#0F1629",
+            letterSpacing: "-0.03em",
           }}
         >
-          AgentOS
+          Luce
         </span>
 
         <button
           onClick={onCtaClick}
           style={{
-            backgroundColor: "#D4A843",
-            color: "#08090D",
-            fontFamily: "var(--font-inter), sans-serif",
+            fontFamily: "var(--font-body), sans-serif",
             fontSize: "14px",
             fontWeight: 600,
-            padding: "8px 18px",
-            borderRadius: "4px",
+            padding: "8px 20px",
+            borderRadius: "6px",
+            backgroundColor: "#0F1629",
+            color: "#FFFFFF",
             border: "none",
             cursor: "pointer",
-            transition: "background-color 0.15s ease, transform 0.15s ease",
+            transition: "opacity 0.15s ease",
           }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "#E8BC52";
-            e.currentTarget.style.transform = "translateY(-1px)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = "#D4A843";
-            e.currentTarget.style.transform = "translateY(0)";
-          }}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
         >
-          Try — $1.99
+          Get started
         </button>
       </div>
     </nav>

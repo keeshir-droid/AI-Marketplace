@@ -2,14 +2,14 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "You're in — AgentOS",
+  title: "You're in | Luce",
 };
 
 export default function ThankYouPage() {
   return (
     <div
       style={{
-        backgroundColor: "#08090D",
+        background: "linear-gradient(135deg, rgba(34,211,238,0.06) 0%, rgba(129,140,248,0.09) 50%, rgba(236,72,153,0.06) 100%)",
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -19,30 +19,26 @@ export default function ThankYouPage() {
         textAlign: "center",
       }}
     >
-      <div style={{ maxWidth: "520px" }}>
-        {/* Brand */}
+      <div style={{ maxWidth: "480px" }}>
         <p
           style={{
-            fontFamily: "var(--font-space-grotesk), sans-serif",
-            fontSize: "16px",
+            fontFamily: "var(--font-display), sans-serif",
+            fontSize: "24px",
             fontWeight: 700,
-            color: "#D4A843",
-            letterSpacing: "-0.02em",
+            color: "#0F1629",
             marginBottom: "48px",
           }}
         >
-          AgentOS
+          Luce
         </p>
 
-        {/* Headline */}
         <h1
           style={{
-            fontFamily: "var(--font-space-grotesk), sans-serif",
-            fontSize: "clamp(32px, 5vw, 48px)",
+            fontFamily: "var(--font-display), sans-serif",
+            fontSize: "clamp(36px, 5vw, 52px)",
             fontWeight: 700,
-            letterSpacing: "-0.02em",
             lineHeight: 1.1,
-            color: "#EEEEE8",
+            color: "#0F1629",
             marginBottom: "20px",
           }}
         >
@@ -51,87 +47,80 @@ export default function ThankYouPage() {
 
         <p
           style={{
-            fontFamily: "var(--font-inter), sans-serif",
-            fontSize: "17px",
+            fontFamily: "var(--font-body), sans-serif",
+            fontSize: "16px",
             lineHeight: 1.6,
-            color: "#7A7C85",
+            color: "#64748B",
             marginBottom: "48px",
           }}
         >
-          We&apos;ll email you when your agents are ready to launch. You&apos;re
-          on the priority list.
+          We&apos;ll email you when your agents are ready. You&apos;re on the priority list.
         </p>
 
-        {/* Divider */}
         <div
           style={{
-            borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+            borderTop: "1px solid rgba(129, 140, 248, 0.12)",
             marginBottom: "40px",
           }}
         />
 
-        {/* Community CTA */}
         <div
           style={{
-            backgroundColor: "#111318",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
-            borderRadius: "6px",
+            backgroundColor: "#FFFFFF",
+            border: "1px solid rgba(129, 140, 248, 0.15)",
+            borderRadius: "12px",
             padding: "28px",
             marginBottom: "32px",
           }}
         >
           <p
             style={{
-              fontFamily: "var(--font-space-grotesk), sans-serif",
-              fontSize: "18px",
+              fontFamily: "var(--font-body), sans-serif",
+              fontSize: "15px",
               fontWeight: 600,
-              color: "#EEEEE8",
-              marginBottom: "12px",
+              color: "#0F1629",
+              marginBottom: "8px",
             }}
           >
             Join the founding members community
           </p>
           <p
             style={{
-              fontFamily: "var(--font-inter), sans-serif",
-              fontSize: "14px",
-              color: "#7A7C85",
+              fontFamily: "var(--font-body), sans-serif",
+              fontSize: "13px",
+              color: "#64748B",
               marginBottom: "20px",
             }}
           >
-            Get behind-the-scenes updates, vote on features, and connect with
-            other early members.
+            Get updates, vote on features, and connect with other early members.
           </p>
           <a
             href="#"
+            className="btn-gradient"
             style={{
               display: "inline-block",
-              backgroundColor: "#D4A843",
-              color: "#08090D",
-              fontFamily: "var(--font-inter), sans-serif",
-              fontSize: "14px",
+              fontFamily: "var(--font-body), sans-serif",
+              fontSize: "13px",
               fontWeight: 600,
               padding: "10px 20px",
-              borderRadius: "4px",
+              borderRadius: "6px",
               textDecoration: "none",
-              transition: "background-color 0.15s ease",
             }}
           >
-            Join WhatsApp Group →
+            Join WhatsApp Group
           </a>
         </div>
 
         <Link
           href="/"
           style={{
-            fontFamily: "var(--font-inter), sans-serif",
-            fontSize: "14px",
-            color: "#4A4C54",
+            fontFamily: "var(--font-body), sans-serif",
+            fontSize: "13px",
+            color: "#818CF8",
             textDecoration: "none",
-            transition: "color 0.15s ease",
           }}
         >
-          ← Back to home
+          Back to home
         </Link>
       </div>
     </div>

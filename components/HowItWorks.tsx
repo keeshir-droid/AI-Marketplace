@@ -1,106 +1,80 @@
 const steps = [
   {
-    number: "01",
-    title: "Pick",
-    description:
-      "Browse agents below. Choose the ones that solve your biggest daily headaches.",
+    number: "1",
+    title: "Pick your agents",
+    description: "Browse below and select the ones that solve your biggest problems.",
+    color: "#22D3EE",
   },
   {
-    number: "02",
-    title: "Connect",
-    description:
-      "Follow a 5-minute guided setup to link your existing tools — Gmail, Shopify, Calendar, WhatsApp, Google Ads.",
+    number: "2",
+    title: "Connect your tools",
+    description: "A 5-minute guided setup links Gmail, Shopify, Calendar, and more.",
+    color: "#818CF8",
   },
   {
-    number: "03",
-    title: "Let It Run",
-    description:
-      "Your agents work 24/7 in the background. You get alerts only when you need to act.",
+    number: "3",
+    title: "Let them run",
+    description: "Your agents work in the background. You get alerts only when needed.",
+    color: "#EC4899",
   },
 ];
 
 export default function HowItWorks() {
   return (
-    <section
-      style={{
-        paddingTop: "120px",
-        paddingBottom: "120px",
-        paddingLeft: "24px",
-        paddingRight: "24px",
-        borderTop: "1px solid rgba(255, 255, 255, 0.06)",
-      }}
-    >
-      <div style={{ maxWidth: "1140px", margin: "0 auto" }}>
-        {/* Headline */}
-        <h2
-          style={{
-            fontFamily: "var(--font-space-grotesk), sans-serif",
-            fontSize: "clamp(28px, 3.5vw, 40px)",
-            fontWeight: 700,
-            letterSpacing: "-0.02em",
-            lineHeight: 1.2,
-            color: "#EEEEE8",
-            marginBottom: "60px",
-            textAlign: "center",
-          }}
-        >
-          Three steps. Five minutes. Then it runs forever.
-        </h2>
-
-        {/* Steps */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: "20px",
-          }}
-        >
-          {steps.map((step) => (
-            <div
-              key={step.number}
-              style={{
-                backgroundColor: "#111318",
-                border: "1px solid rgba(255, 255, 255, 0.08)",
-                borderRadius: "6px",
-                padding: "28px",
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: "var(--font-space-grotesk), sans-serif",
-                  fontSize: "13px",
-                  fontWeight: 500,
-                  letterSpacing: "0.05em",
-                  color: "#D4A843",
-                  marginBottom: "16px",
-                }}
-              >
-                {step.number}
-              </div>
-              <h3
-                style={{
-                  fontFamily: "var(--font-space-grotesk), sans-serif",
-                  fontSize: "20px",
-                  fontWeight: 600,
-                  color: "#EEEEE8",
-                  marginBottom: "12px",
-                }}
-              >
+    <section style={{
+      paddingTop: "60px",
+      paddingBottom: "60px",
+      paddingLeft: "24px",
+      paddingRight: "24px",
+    }}>
+      <div style={{
+        maxWidth: "1140px",
+        margin: "0 auto",
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+        gap: "20px",
+      }}>
+        {steps.map((step) => (
+          <div key={step.number} style={{
+            display: "flex",
+            alignItems: "flex-start",
+            gap: "14px",
+            padding: "20px",
+            backgroundColor: "rgba(129, 140, 248, 0.04)",
+            borderRadius: "10px",
+            border: "1px solid rgba(129, 140, 248, 0.08)",
+          }}>
+            <span style={{
+              fontFamily: "var(--font-display), sans-serif",
+              fontSize: "24px",
+              fontWeight: 700,
+              color: step.color,
+              lineHeight: 1,
+              flexShrink: 0,
+            }}>
+              {step.number}
+            </span>
+            <div>
+              <p style={{
+                fontFamily: "var(--font-body), sans-serif",
+                fontSize: "15px",
+                fontWeight: 600,
+                color: "#0F1629",
+                marginBottom: "4px",
+              }}>
                 {step.title}
-              </h3>
-              <p
-                style={{
-                  fontFamily: "var(--font-inter), sans-serif",
-                  fontSize: "15px",
-                  lineHeight: 1.6,
-                  color: "#7A7C85",
-                }}
-              >
+              </p>
+              <p style={{
+                fontFamily: "var(--font-body), sans-serif",
+                fontSize: "13px",
+                lineHeight: 1.5,
+                color: "#64748B",
+              }}>
                 {step.description}
               </p>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </section>
   );

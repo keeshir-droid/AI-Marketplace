@@ -3,7 +3,6 @@
 import { useState, useCallback } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import ProblemSection from "@/components/ProblemSection";
 import HowItWorks from "@/components/HowItWorks";
 import AgentGrid from "@/components/AgentGrid";
 import FloatingCart from "@/components/FloatingCart";
@@ -45,30 +44,27 @@ export default function HomePage() {
   };
 
   return (
-    <div style={{ backgroundColor: "#08090D", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#F5F7FF", minHeight: "100vh" }}>
       <Navbar onCtaClick={handleTryNow} />
 
       <main>
         <Hero onBrowseClick={scrollToAgents} />
-        <ProblemSection />
         <HowItWorks />
         <AgentGrid
           sectionId="enterprise-agents"
           agents={enterpriseAgents}
           selectedIds={selectedIds}
           onToggle={toggleAgent}
-          eyebrow="For Your Business"
-          headline="Agents that replace full-time roles."
-          columns={3}
+          headline="For your business"
+          sectionBg="rgba(129, 140, 248, 0.04)"
         />
         <AgentGrid
           sectionId="personal-agents"
           agents={personalAgents}
           selectedIds={selectedIds}
           onToggle={toggleAgent}
-          eyebrow="For You"
-          headline="Agents that handle the life admin you keep postponing."
-          columns={3}
+          headline="For you"
+          sectionBg="rgba(34, 211, 238, 0.04)"
         />
         <WaitlistOffer onCtaClick={handleTryNow} />
         <FAQ />

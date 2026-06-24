@@ -8,46 +8,52 @@
   padding: 0;
 }
 
+:root {
+  --gradient: linear-gradient(135deg, #22D3EE 0%, #818CF8 60%, #EC4899 100%);
+  --gradient-subtle: linear-gradient(135deg, rgba(34,211,238,0.08) 0%, rgba(129,140,248,0.08) 60%, rgba(236,72,153,0.08) 100%);
+  --gradient-border: linear-gradient(135deg, #22D3EE, #818CF8, #EC4899);
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: #08090D;
-  color: #EEEEE8;
-  font-family: 'Inter', sans-serif;
+  background-color: #F5F7FF;
+  color: #0F1629;
+  font-family: var(--font-body), 'DM Sans', sans-serif;
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Remove all box shadows globally */
-* {
-  box-shadow: none !important;
+/* Gradient text utility */
+.gradient-text {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Accordion animation */
-.accordion-content {
-  overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease;
+/* Gradient button */
+.btn-gradient {
+  background: var(--gradient);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.btn-gradient:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
 }
 
-/* Floating cart slide-up */
-.floating-cart {
-  transition: transform 0.3s ease;
-}
-
-.floating-cart.hidden {
-  transform: translateY(100%);
-}
-
-/* Agent card selection */
+/* Agent card */
 .agent-card {
-  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
   cursor: pointer;
 }
-
 .agent-card:hover {
   transform: translateY(-2px);
 }

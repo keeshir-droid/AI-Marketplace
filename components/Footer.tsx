@@ -1,140 +1,72 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
-    <footer
-      style={{
-        borderTop: "1px solid rgba(255, 255, 255, 0.06)",
-        paddingTop: "48px",
-        paddingBottom: "48px",
-        paddingLeft: "24px",
-        paddingRight: "24px",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "1140px",
-          margin: "0 auto",
-          display: "flex",
-          flexDirection: "column",
-          gap: "24px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            gap: "24px",
-          }}
-        >
-          {/* Brand */}
-          <div>
-            <p
-              style={{
-                fontFamily: "var(--font-space-grotesk), sans-serif",
-                fontSize: "18px",
-                fontWeight: 700,
-                color: "#EEEEE8",
-                marginBottom: "8px",
-                letterSpacing: "-0.02em",
-              }}
-            >
-              AgentOS
-            </p>
-            <a
-              href="mailto:support@agentos.co"
-              style={{
-                fontFamily: "var(--font-inter), sans-serif",
-                fontSize: "14px",
-                color: "#7A7C85",
-                textDecoration: "none",
-              }}
-            >
-              support@agentos.co
-            </a>
-          </div>
-
-          {/* Links */}
-          <div
-            style={{
-              display: "flex",
-              gap: "32px",
-              flexWrap: "wrap",
-              alignItems: "center",
-            }}
-          >
-            <div style={{ display: "flex", gap: "20px" }}>
-              <a
-                href="#"
-                style={{
-                  fontFamily: "var(--font-inter), sans-serif",
-                  fontSize: "14px",
-                  color: "#7A7C85",
-                  textDecoration: "none",
-                  transition: "color 0.15s ease",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#EEEEE8")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#7A7C85")}
-              >
-                Twitter/X
-              </a>
-              <a
-                href="#"
-                style={{
-                  fontFamily: "var(--font-inter), sans-serif",
-                  fontSize: "14px",
-                  color: "#7A7C85",
-                  textDecoration: "none",
-                  transition: "color 0.15s ease",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#EEEEE8")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#7A7C85")}
-              >
-                LinkedIn
-              </a>
-            </div>
-            <div style={{ display: "flex", gap: "20px" }}>
-              <a
-                href="#"
-                style={{
-                  fontFamily: "var(--font-inter), sans-serif",
-                  fontSize: "14px",
-                  color: "#7A7C85",
-                  textDecoration: "none",
-                  transition: "color 0.15s ease",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#EEEEE8")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#7A7C85")}
-              >
-                Privacy Policy
-              </a>
-              <a
-                href="#"
-                style={{
-                  fontFamily: "var(--font-inter), sans-serif",
-                  fontSize: "14px",
-                  color: "#7A7C85",
-                  textDecoration: "none",
-                  transition: "color 0.15s ease",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#EEEEE8")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#7A7C85")}
-              >
-                Terms of Service
-              </a>
-            </div>
-          </div>
+    <footer style={{
+      borderTop: "1px solid rgba(129, 140, 248, 0.08)",
+      paddingTop: "40px",
+      paddingBottom: "40px",
+      paddingLeft: "24px",
+      paddingRight: "24px",
+    }}>
+      <div style={{
+        maxWidth: "1140px",
+        margin: "0 auto",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+        gap: "16px",
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
+          <span style={{
+            fontFamily: "var(--font-display), sans-serif",
+            fontSize: "18px",
+            fontWeight: 800,
+            color: "#0F1629",
+            letterSpacing: "-0.03em",
+          }}>
+            Luce
+          </span>
+          <span style={{
+            fontFamily: "var(--font-body), sans-serif",
+            fontSize: "12px",
+            color: "#CBD5E1",
+          }}>
+            2026 Luce. All rights reserved.
+          </span>
         </div>
 
-        <p
-          style={{
-            fontFamily: "var(--font-inter), sans-serif",
-            fontSize: "13px",
-            color: "#4A4C54",
-          }}
-        >
-          © 2026 AgentOS. All rights reserved.
-        </p>
+        <div style={{ display: "flex", gap: "20px" }}>
+          <Link
+            href="/privacy"
+            style={{
+              fontFamily: "var(--font-body), sans-serif",
+              fontSize: "13px",
+              color: "#94A3B8",
+              textDecoration: "none",
+              transition: "color 0.15s ease",
+            }}
+            onMouseOver={(e) => (e.currentTarget.style.color = "#818CF8")}
+            onMouseOut={(e) => (e.currentTarget.style.color = "#94A3B8")}
+          >
+            Privacy
+          </Link>
+          <Link
+            href="/terms"
+            style={{
+              fontFamily: "var(--font-body), sans-serif",
+              fontSize: "13px",
+              color: "#94A3B8",
+              textDecoration: "none",
+              transition: "color 0.15s ease",
+            }}
+            onMouseOver={(e) => (e.currentTarget.style.color = "#818CF8")}
+            onMouseOut={(e) => (e.currentTarget.style.color = "#94A3B8")}
+          >
+            Terms
+          </Link>
+        </div>
       </div>
     </footer>
   );

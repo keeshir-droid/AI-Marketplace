@@ -81,11 +81,11 @@ export default function EmailModal({
         key: data.keyId,
         amount: data.amount,
         currency: data.currency,
-        name: "AgentOS",
+        name: "Luce",
         description: `Waitlist: ${selectedCount} agent${selectedCount !== 1 ? "s" : ""}`,
         order_id: data.orderId,
         prefill: { email, name: name || undefined },
-        theme: { color: "#D4A843" },
+        theme: { color: "#818CF8" },
         handler: async (response: RazorpayResponse) => {
           try {
             const verifyRes = await fetch("/api/verify-payment", {
@@ -126,13 +126,13 @@ export default function EmailModal({
 
   const inputStyle: React.CSSProperties = {
     width: "100%",
-    backgroundColor: "#08090D",
-    border: "1px solid rgba(255, 255, 255, 0.12)",
-    borderRadius: "4px",
-    padding: "12px 14px",
-    fontFamily: "var(--font-inter), sans-serif",
-    fontSize: "15px",
-    color: "#EEEEE8",
+    backgroundColor: "#F5F7FF",
+    border: "1px solid rgba(129, 140, 248, 0.18)",
+    borderRadius: "6px",
+    padding: "11px 14px",
+    fontFamily: "var(--font-body), sans-serif",
+    fontSize: "14px",
+    color: "#0F1629",
     outline: "none",
     transition: "border-color 0.15s ease",
   };
@@ -147,8 +147,8 @@ export default function EmailModal({
         alignItems: "center",
         justifyContent: "center",
         padding: "20px",
-        backgroundColor: "rgba(8, 9, 13, 0.85)",
-        backdropFilter: "blur(8px)",
+        backgroundColor: "rgba(15, 22, 41, 0.5)",
+        backdropFilter: "blur(6px)",
       }}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
@@ -157,43 +157,43 @@ export default function EmailModal({
       <div
         style={{
           width: "100%",
-          maxWidth: "440px",
-          backgroundColor: "#111318",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
-          borderRadius: "6px",
-          padding: "36px",
+          maxWidth: "420px",
+          backgroundColor: "#FFFFFF",
+          border: "1px solid rgba(129, 140, 248, 0.15)",
+          borderRadius: "12px",
+          padding: "32px",
+          boxShadow: "0 20px 60px rgba(15, 22, 41, 0.15)",
         }}
       >
-        {/* Header */}
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "flex-start",
-            marginBottom: "28px",
+            marginBottom: "24px",
           }}
         >
           <div>
             <h2
               style={{
-                fontFamily: "var(--font-space-grotesk), sans-serif",
+                fontFamily: "var(--font-display), sans-serif",
                 fontSize: "24px",
+                fontWeight: 400,
                 fontWeight: 700,
-                color: "#EEEEE8",
-                marginBottom: "6px",
+                color: "#0F1629",
+                marginBottom: "4px",
               }}
             >
               Almost there
             </h2>
             <p
               style={{
-                fontFamily: "var(--font-inter), sans-serif",
-                fontSize: "14px",
-                color: "#7A7C85",
+                fontFamily: "var(--font-body), sans-serif",
+                fontSize: "13px",
+                color: "#64748B",
               }}
             >
-              {selectedCount} agent{selectedCount !== 1 ? "s" : ""} · $
-              {total} total
+              {selectedCount} agent{selectedCount !== 1 ? "s" : ""} / ${total}
             </p>
           </div>
           <button
@@ -201,9 +201,9 @@ export default function EmailModal({
             style={{
               background: "none",
               border: "none",
-              color: "#4A4C54",
+              color: "#94A3B8",
               cursor: "pointer",
-              fontSize: "20px",
+              fontSize: "18px",
               lineHeight: 1,
               padding: "4px",
             }}
@@ -212,27 +212,26 @@ export default function EmailModal({
           </button>
         </div>
 
-        {/* Form */}
         <form
           onSubmit={handleSubmit}
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: "16px",
+            gap: "14px",
           }}
         >
           <div>
             <label
               style={{
                 display: "block",
-                fontFamily: "var(--font-inter), sans-serif",
-                fontSize: "13px",
+                fontFamily: "var(--font-body), sans-serif",
+                fontSize: "12px",
                 fontWeight: 500,
-                color: "#7A7C85",
-                marginBottom: "8px",
+                color: "#64748B",
+                marginBottom: "6px",
               }}
             >
-              Email address *
+              Email *
             </label>
             <input
               type="email"
@@ -242,12 +241,10 @@ export default function EmailModal({
               required
               style={inputStyle}
               onFocus={(e) =>
-                (e.currentTarget.style.borderColor =
-                  "rgba(212, 168, 67, 0.5)")
+                (e.currentTarget.style.borderColor = "rgba(129, 140, 248, 0.5)")
               }
               onBlur={(e) =>
-                (e.currentTarget.style.borderColor =
-                  "rgba(255, 255, 255, 0.12)")
+                (e.currentTarget.style.borderColor = "rgba(129, 140, 248, 0.18)")
               }
             />
           </div>
@@ -256,15 +253,15 @@ export default function EmailModal({
             <label
               style={{
                 display: "block",
-                fontFamily: "var(--font-inter), sans-serif",
-                fontSize: "13px",
+                fontFamily: "var(--font-body), sans-serif",
+                fontSize: "12px",
                 fontWeight: 500,
-                color: "#7A7C85",
-                marginBottom: "8px",
+                color: "#64748B",
+                marginBottom: "6px",
               }}
             >
               Name{" "}
-              <span style={{ color: "#4A4C54", fontWeight: 400 }}>
+              <span style={{ color: "#94A3B8", fontWeight: 400 }}>
                 (optional)
               </span>
             </label>
@@ -275,12 +272,10 @@ export default function EmailModal({
               placeholder="Your name"
               style={inputStyle}
               onFocus={(e) =>
-                (e.currentTarget.style.borderColor =
-                  "rgba(212, 168, 67, 0.5)")
+                (e.currentTarget.style.borderColor = "rgba(129, 140, 248, 0.5)")
               }
               onBlur={(e) =>
-                (e.currentTarget.style.borderColor =
-                  "rgba(255, 255, 255, 0.12)")
+                (e.currentTarget.style.borderColor = "rgba(129, 140, 248, 0.18)")
               }
             />
           </div>
@@ -288,7 +283,7 @@ export default function EmailModal({
           {error && (
             <p
               style={{
-                fontFamily: "var(--font-inter), sans-serif",
+                fontFamily: "var(--font-body), sans-serif",
                 fontSize: "13px",
                 color: "#F87171",
               }}
@@ -300,47 +295,33 @@ export default function EmailModal({
           <button
             type="submit"
             disabled={loading}
+            className={loading ? "" : "btn-gradient"}
             style={{
-              backgroundColor: loading ? "#B8922B" : "#D4A843",
-              color: "#08090D",
-              fontFamily: "var(--font-inter), sans-serif",
-              fontSize: "15px",
+              background: loading ? "rgba(129, 140, 248, 0.4)" : undefined,
+              color: "#FFFFFF",
+              fontFamily: "var(--font-body), sans-serif",
+              fontSize: "14px",
               fontWeight: 600,
-              padding: "13px 24px",
-              borderRadius: "4px",
+              padding: "12px 24px",
+              borderRadius: "6px",
               border: "none",
               cursor: loading ? "not-allowed" : "pointer",
               marginTop: "4px",
-              transition:
-                "background-color 0.15s ease, transform 0.15s ease",
-              opacity: loading ? 0.8 : 1,
-            }}
-            onMouseEnter={(e) => {
-              if (!loading) {
-                e.currentTarget.style.backgroundColor = "#E8BC52";
-                e.currentTarget.style.transform = "translateY(-1px)";
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (!loading) {
-                e.currentTarget.style.backgroundColor = "#D4A843";
-                e.currentTarget.style.transform = "translateY(0)";
-              }
+              opacity: loading ? 0.7 : 1,
             }}
           >
-            {loading ? "Processing..." : `Pay $${total} →`}
+            {loading ? "Processing..." : `Pay $${total}`}
           </button>
 
           <p
             style={{
-              fontFamily: "var(--font-inter), sans-serif",
-              fontSize: "12px",
-              color: "#4A4C54",
+              fontFamily: "var(--font-body), sans-serif",
+              fontSize: "11px",
+              color: "#94A3B8",
               textAlign: "center",
             }}
           >
-            Secured by Razorpay. Full refund if we don&apos;t launch by Q4
-            2026.
+            Secured by Razorpay. Full refund if we don&apos;t launch by July 7th, 2026.
           </p>
         </form>
       </div>
