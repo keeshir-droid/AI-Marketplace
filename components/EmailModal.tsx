@@ -178,7 +178,6 @@ export default function EmailModal({
               style={{
                 fontFamily: "var(--font-display), sans-serif",
                 fontSize: "24px",
-                fontWeight: 400,
                 fontWeight: 700,
                 color: "#0F1629",
                 marginBottom: "4px",
